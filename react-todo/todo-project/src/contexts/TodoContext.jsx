@@ -53,9 +53,9 @@ const todoreducer = (prev, action) => {
         return todo.id === action.todo.id
           ? {
               ...todo,
-              task: action.todo,
-              due: action.duo,
-              priority: action.priority,
+              task: action.todo.task,
+              due: action.todo.due,
+              priority: action.todo.priority,
             }
           : { ...todo };
       });

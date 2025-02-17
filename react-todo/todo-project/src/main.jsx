@@ -7,9 +7,9 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ThemeProvider>
       <App />
     </ThemeProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
