@@ -51,7 +51,12 @@ const todoreducer = (prev, action) => {
     case UPDATE:
       return prev.map((todo) => {
         return todo.id === action.todo.id
-          ? { ...todo, ...action.todo }
+          ? {
+              ...todo,
+              task: action.todo,
+              due: action.duo,
+              priority: action.priority,
+            }
           : { ...todo };
       });
     case DELETE:
