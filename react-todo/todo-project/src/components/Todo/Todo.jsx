@@ -13,9 +13,14 @@ export const Todo = () => {
   const { theme } = useTheme();
   const { state } = useDispatch();
   const { UPDATE, DELETE, DONE } = useConst();
+
+  const activeTodos = state.filter((todo) => {
+    return todo.isDone == false;
+  });
+
   return (
     <div>
-      {state.map((prev) => {
+      {activeTodos.map((prev) => {
         return (
           <section className={`Todo-Card_section ${theme}`} key={prev.id}>
             <ul className={`Todo-Card_list ${theme}`}>
