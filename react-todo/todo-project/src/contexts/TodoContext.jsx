@@ -25,7 +25,7 @@ const DONE = "DONE";
 
 const iniState = [
   {
-    id:'1',
+    id: "1",
     task: "React",
     createdate: "2025-02-14",
     due: "2025-03-14",
@@ -34,7 +34,7 @@ const iniState = [
   },
 
   {
-    id:'2',
+    id: "2",
     task: " Viu.js",
     createdate: "2025-02-14",
     due: "2025-03-14",
@@ -44,15 +44,26 @@ const iniState = [
 ];
 
 const todoreducer = (prev, action) => {
+  console.log(action);
   switch (action.type) {
     case ADD:
-      return console.log(ADD);
+      return [...prev, action.todo];
     case UPDATE:
-      return console.log(UPDATE);
+      return prev.map((todo) => {
+        return todo.id === action.todo.id
+          ? { ...todo, ...action.todo }
+          : { ...todo };
+      });
     case DELETE:
-      return console.log(DELETE);
+      return prev.filter((todo) => {
+        return todo.id !== action.todo.id;
+      });
     case DONE:
-      return console.log(DONE);
+      return prev.map((todo) => {
+        return todo.id === action.todo.id
+          ? { ...todo, isDone: true }
+          : { ...todo };
+      });
     default:
       throw new Error("不明なactionです。");
   }
