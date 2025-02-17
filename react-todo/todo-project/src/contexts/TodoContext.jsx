@@ -14,7 +14,10 @@
 //setBadge(newTodo.lenght)
 
 import { useContext, useState, createContext, useReducer } from "react";
-const TodoContext = createContext();
+
+const TodoDispatchContext = createContext();
+const TodoConstContext = createContext();
+
 const ADD = "ADD";
 const UPDATE = "UPDATE";
 const DELETE = "DELETE";
@@ -44,7 +47,16 @@ const todoreducer = (prev, action) => {
 };
 
 const [state, dispatch] = useReducer(todoreducer, iniState);
-//TODO Reducerをかく
+
 export const TodoProvider = () => {
-  return <TodoContext.Provider>{children}</TodoContext.Provider>;
+  return (
+    <TodoDispatchContext.Provider value={{ state, dispatch }}>
+      <TodoConstContext.Provider value={{ ADD, UPDATE, DELETE, DONE }}>
+        {children}
+      </TodoConstContext.Provider>
+    </TodoDispatchContext.Provider>
+  );
 };
+
+export const useDispatch = () => useContext(TodoDispatchContext);
+export const useConst = () => useConst(TodoConstContext);
