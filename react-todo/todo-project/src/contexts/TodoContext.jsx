@@ -23,13 +23,25 @@ const UPDATE = "UPDATE";
 const DELETE = "DELETE";
 const DONE = "DONE";
 
-const iniState = {
-  task: "React",
-  createdate: "2025-02-14",
-  due: "2025-03-14",
-  priority: "HOT",
-  isDone: false,
-};
+const iniState = [
+  {
+    id:'1',
+    task: "React",
+    createdate: "2025-02-14",
+    due: "2025-03-14",
+    priority: "HOT",
+    isDone: false,
+  },
+
+  {
+    id:'2',
+    task: " Viu.js",
+    createdate: "2025-02-14",
+    due: "2025-03-14",
+    priority: "HOT",
+    isDone: false,
+  },
+];
 
 const todoreducer = (prev, action) => {
   switch (action.type) {
@@ -46,9 +58,9 @@ const todoreducer = (prev, action) => {
   }
 };
 
-const [state, dispatch] = useReducer(todoreducer, iniState);
+export const TodoProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(todoreducer, iniState);
 
-export const TodoProvider = () => {
   return (
     <TodoDispatchContext.Provider value={{ state, dispatch }}>
       <TodoConstContext.Provider value={{ ADD, UPDATE, DELETE, DONE }}>
@@ -59,4 +71,4 @@ export const TodoProvider = () => {
 };
 
 export const useDispatch = () => useContext(TodoDispatchContext);
-export const useConst = () => useConst(TodoConstContext);
+export const useConst = () => useContext(TodoConstContext);
