@@ -2,15 +2,18 @@
 //完了ボタン
 import { useTheme } from "../contexts/ThemeContext";
 import { useDispatch } from "../contexts/TodoContext";
-const Button = ({ text, type, todo }) => {
+const Button = ({ text, type, todo, clickHandler }) => {
   const { theme } = useTheme();
   const { dispatch } = useDispatch();
-  
   const buttonhandler = () => {
-    dispatch({ type, todo });
+    if (clickHandler) {
+      clickHandler();
+    } else {
+      dispatch({ type, todo });
+    }
   };
   return (
-    <button className={`button $(theme)`} onClick={buttonhandler}>
+    <button className={`button ${theme}`} onClick={buttonhandler}>
       {text}:{type}
     </button>
   );
