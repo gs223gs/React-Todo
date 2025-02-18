@@ -23,13 +23,18 @@ const UPDATE = "UPDATE";
 const DELETE = "DELETE";
 const DONE = "DONE";
 
+const HIGH = 'HIGH';
+const MEDIUM = 'MEDIUM';
+const LOW = 'LOW';
+
+
 const iniState = [
   {
     id: "1",
     task: "React",
     createdate: "2025-02-14",
     due: "2025-03-14",
-    priority: "HOT",
+    priority: HIGH,
     isDone: false,
   },
 
@@ -38,7 +43,7 @@ const iniState = [
     task: " Viu.js",
     createdate: "2025-02-14",
     due: "2025-03-14",
-    priority: "HOT",
+    priority: LOW,
     isDone: false,
   },
 ];
@@ -79,7 +84,7 @@ export const TodoProvider = ({ children }) => {
 
   return (
     <TodoDispatchContext.Provider value={{ state, dispatch }}>
-      <TodoConstContext.Provider value={{ ADD, UPDATE, DELETE, DONE }}>
+      <TodoConstContext.Provider value={{ ADD, UPDATE, DELETE, DONE, HIGH, MEDIUM, LOW }}>
         {children}
       </TodoConstContext.Provider>
     </TodoDispatchContext.Provider>

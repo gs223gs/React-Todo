@@ -6,19 +6,12 @@ import { Todo } from "./components/Todo/Todo";
 const App = () => {
   const { theme } = useTheme();
 
-
   return (
     <TodoProvider>
-      <div>
-        <h1>hello world</h1>
-        <p>{theme}</p>
-      </div>
-      <Todo>
-
-      </Todo>
+      <p>{theme}</p>
+      <Todo />
     </TodoProvider>
   );
 };
 
 export default App;
-
