@@ -19,12 +19,12 @@ export const Todo = () => {
   return (
     <div>
       <div>
+        <Editing type={ADD} />
+      </div>
+      <div>
         {activeTodos.map((prev) => {
           return <TodoList prev={prev} key={prev.id} />;
         })}
-      </div>
-      <div>
-        <Editing type={ADD} />
       </div>
     </div>
   );
