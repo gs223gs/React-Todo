@@ -1,42 +1,196 @@
-#root {
-  max-width: 1280px;
+/* グローバルスタイルとテーマ変数の定義 */
+:root {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --border-radius: 10px;
+  --transition-duration: 0.3s;
+}
+
+/* ダークモードの変数設定と基本背景・文字色 */
+.dark {
+  --card-bg: #2c2c2c;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --button-bg: #555;
+  --button-text: #f5f5f5;
+  --button-hover-bg: #666;
+
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}
+
+/* ライトモードの変数設定と基本背景・文字色 */
+.light {
+  --card-bg: #fff;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --button-bg: #007BFF;
+  --button-text: #fff;
+  --button-hover-bg: #0056b3;
+
+  background-color: #fafafa;
+  color: #333;
+}
+
+/* 共通のトランジション設定 */
+.todo,
+.todo-create,
+.todo-card,
+.todo-card_section,
+.todo-card_list,
+.todo-card_item,
+.input,
+.editing-select,
+.button {
+  transition: background-color var(--transition-duration), color var(--transition-duration), border-color var(--transition-duration);
+}
+
+/* アプリ全体のコンテナ - デフォルトは縦並び（モバイル向け） */
+.todo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Todoカード全体を内包するコンテナ */
+.todo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Todo作成（追加・編集）用カード */
+.todo-create {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Todoカード自体のスタイル */
+.todo-card_section {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  width: 100%;
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 1.5rem;
+}
+
+/* Todoリスト（カード内）のスタイル */
+.todo-card_list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+/* Todoの各項目（リストアイテム）のスタイル */
+.todo-card_item {
+  flex: 1 1 auto;
+  padding: 0.5rem;
+  min-width: 100px;
+}
+
+/* 入力フォームおよびセレクトボックスのスタイル */
+.input,
+.editing-select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* フォーカス時のスタイル */
+.input:focus,
+.editing-select:focus {
+  border-color: var(--button-bg);
+  outline: none;
+}
+
+/* ダークモード専用：入力フォーム・セレクトボックス */
+.dark .input,
+.dark .editing-select {
+  background-color: #3c3c3c;
+  border: 1px solid #555;
+  color: #f5f5f5;
+}
+
+/* ライトモード専用：入力フォーム・セレクトボックス */
+.light .input,
+.light .editing-select {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+/* ボタンの基本スタイル */
+.button {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* ダークモード専用：ボタンスタイル */
+.dark .button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+.dark .button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* ライトモード専用：ボタンスタイル */
+.light .button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+.light .button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* レスポンシブ対応：画面幅が狭い場合の調整 */
+@media (max-width: 768px) {
+  .todo-card_list {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .todo-card_item {
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* 画面幅が768px以上の場合、フォームを左側、Todoリストを右側に表示 */
+@media (min-width: 768px) {
+  .todo {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .todo-create {
+    width: 35%;
+    max-width: none;
+    margin: 0;
+  }
+  .todo-card {
+    width: 65%;
+    max-width: none;
+    margin: 0;
+  }
 }

@@ -3,7 +3,15 @@
 // type = task, username, password
 //来たタイプによって処理を変える
 
-
+import { useTheme } from "../../contexts/ThemeContext";
 export const Input = ({ type, changehandler, state }) => {
-  return <input type={type} value={state} onChange={changehandler} />;
+  const { theme } = useTheme();
+  return (
+    <input
+      className={`input ${theme}`}
+      type={type}
+      value={state}
+      onChange={changehandler}
+    />
+  );
 };

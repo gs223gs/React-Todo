@@ -22,7 +22,7 @@ export const TodoList = ({ prev }) => {
     console.log(prev);
   };
   return (
-    <section className={`Todo-Card_section ${theme}`}>
+    <section className={`todo-card_section ${theme}`}>
       {isEditing ? (
         <>
           <Editing
@@ -33,11 +33,11 @@ export const TodoList = ({ prev }) => {
           />
         </>
       ) : (
-        <ul className={`Todo-Card_list ${theme}`}>
-          <li className={`Todo-Card_item ${theme}`}>{prev.task}</li>
-          <li className={`Todo-Card_item ${theme}`}>{prev.createdate}</li>
-          <li className={`Todo-Card_item ${theme}`}>{prev.due}</li>
-          <li className={`Todo-Card_item ${theme}`}>{prev.priority}</li>
+        <ul className={`todo-card_list ${theme}`}>
+          <li className={`todo-card_item ${theme}`}>タスク: {prev.task}</li>
+          <li className={`todo-card_item ${theme}`}>作成日付: {prev.createdate}</li>
+          <li className={`todo-card_item ${theme}`}>期日: {prev.due}</li>
+          <li className={`todo-card_item ${theme}`}>重要度: {prev.priority}</li>
           <Button
             text={"編集"}
             type={UPDATE}
