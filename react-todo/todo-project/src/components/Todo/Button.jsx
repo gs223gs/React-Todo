@@ -2,10 +2,10 @@
 //完了ボタン
 import { useTheme } from "../../contexts/ThemeContext";
 import { useDispatch } from "../../contexts/TodoContext";
-const Button = ({ text, type, todo, clickHandler, setState }) => {
+const Button = ({ text="初期値", type, todo, clickHandler, setState }) => {
   const { theme } = useTheme();
   const { dispatch } = useDispatch();
-
+  
   const buttonhandler = () => {
     if (clickHandler) {
       clickHandler();
@@ -13,6 +13,7 @@ const Button = ({ text, type, todo, clickHandler, setState }) => {
       dispatch({ type, todo });
       setState(false);
     } else {
+      console.log('ADD',{type,todo})
       dispatch({ type, todo });
     }
   };

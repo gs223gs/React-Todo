@@ -29,6 +29,7 @@ export const TodoList = ({ prev }) => {
             prev={prev}
             setIsEditing={setIsEditing}
             switchEditingMode={switchEditingMode}
+            type={UPDATE}
           />
         </>
       ) : (

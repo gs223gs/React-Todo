@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { useDispatch } from "../../contexts/TodoContext";
+import { v4 as uuid } from "uuid";
 import { useConst } from "../../contexts/TodoContext";
 import { Input } from "./Input";
 import Button from "./Button";
-export const Editing = ({ prev, switchEditingMode, setIsEditing }) => {
-  const { UPDATE, HIGH, MEDIUM, LOW } = useConst();
-  const [task, setTask] = useState(prev.task);
-  const [createDate, setCreateDate] = useState(prev.createdate);
-  const [due, setDue] = useState(prev.due);
-  const [prioriry, setPrioriry] = useState(prev.priority);
 
- 
+export const Editing = ({
+  type,
+  prev = { task: "", createDate: "", due: "", priority: "" },
+  switchEditingMode,
+  setIsEditing,
+}) => {
+  const { ADD,UPDATE, HIGH, MEDIUM, LOW } = useConst();
+  const [task, setTask] = useState(prev.task || "");
+  const [createDate, setCreateDate] = useState(prev.createdate || "");
+  const [due, setDue] = useState(prev.due || "");
+  const [prioriry, setPrioriry] = useState(prev.priority || HIGH);
+
   const handleTaskChange = (e) => {
     setTask(e.target.value);
     console.log(task);
@@ -27,7 +32,8 @@ export const Editing = ({ prev, switchEditingMode, setIsEditing }) => {
     setPrioriry(e.target.value);
     console.log(prioriry);
   };
-
+  console.log('todo',{task,createDate,due,prioriry})
+  console.log(type);
   return (
     <>
       <Input type="input" state={task} changehandler={handleTaskChange} />
@@ -42,24 +48,43 @@ export const Editing = ({ prev, switchEditingMode, setIsEditing }) => {
         <option value={MEDIUM}>{MEDIUM}</option>
         <option value={LOW}>{LOW}</option>
       </select>
-      <Button
-        text={"取消"}
-        type={UPDATE}
-        todo={prev}
-        clickHandler={switchEditingMode}
-      />
-      <Button
-        text={"確定"}
-        type={UPDATE}
-        todo={{
-          id: prev.id,
-          task: task,
-          createdate: createDate,
-          due: due,
-          priority: prioriry,
-        }}
-        setState={setIsEditing}
-      />
+      {type === UPDATE ? (
+        <>
+          <Button
+            text="取消"
+            type={UPDATE}
+            todo={prev}
+            clickHandler={switchEditingMode}
+          />
+          <Button
+            text="確定"
+            type={UPDATE}
+            todo={{
+              id: prev.id,
+              task: task,
+              createdate: createDate,
+              due: due,
+              priority: prioriry,
+            }}
+            setState={setIsEditing}
+          />
+        </>
+      ) : (
+        <>
+          <Button
+            text="追加"
+            type={ADD}
+            todo={{
+              id: uuid(),
+              task: task,
+              createdate: createDate,
+              due: due,
+              priority: prioriry,
+              isDone: false,
+            }}
+          />
+        </>
+      )}
     </>
   );
 };
