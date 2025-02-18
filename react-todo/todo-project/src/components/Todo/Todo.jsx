@@ -1,10 +1,3 @@
-//Cardとしてもつ
-
-//.todos.map((todo) =>{
-//return (
-// <List todo={todo}>
-//)
-//})
 import { useDispatch } from "../../contexts/TodoContext";
 import { useConst } from "../../contexts/TodoContext";
 import { useTheme } from "../../contexts/ThemeContext";

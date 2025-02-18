@@ -1,58 +1,56 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useConst } from "../../contexts/TodoContext";
+import { useTheme } from "../../contexts/ThemeContext";
 import { Input } from "./Input";
 import Button from "./Button";
-import { useTheme } from "../../contexts/ThemeContext";
 
 export const Editing = ({
   type,
-  prev = { task: "", createDate: "", due: "", priority: "" },
+  prev = { task: "", createDate: "", due: "", priority: "", isDone: false },
   switchEditingMode,
   setIsEditing,
 }) => {
   const { ADD, UPDATE, HIGH, MEDIUM, LOW } = useConst();
+  const { theme } = useTheme();
   const [task, setTask] = useState(prev.task || "");
   const [createDate, setCreateDate] = useState(prev.createdate || "");
   const [due, setDue] = useState(prev.due || "");
   const [prioriry, setPrioriry] = useState(prev.priority || HIGH);
-  const { theme } = useTheme();
 
-  const handleTaskChange = (e) => {
-    setTask(e.target.value);
-    console.log(task);
-  };
-  const handleCreateDateChange = (e) => {
-    setCreateDate(e.target.value);
-    console.log(createDate);
-  };
-  const handleDueChange = (e) => {
-    setDue(e.target.value);
-    console.log(due);
-  };
-  const handlePriorityChange = (e) => {
-    setPrioriry(e.target.value);
-    console.log(prioriry);
-  };
-  console.log("todo", { task, createDate, due, prioriry });
-  console.log(type);
   return (
     <>
       <p>タスク</p>
-      <Input type="input" state={task} changehandler={handleTaskChange} />
+      <Input
+        type="input"
+        state={task}
+        changehandler={(e) => {
+          setTask(e.target.value);
+        }}
+      />
       <p>作成日付</p>
       <Input
         type="date"
         state={createDate}
-        changehandler={handleCreateDateChange}
+        changehandler={(e) => {
+          setCreateDate(e.target.value);
+        }}
       />
       <p>期日</p>
-      <Input type="date" state={due} changehandler={handleDueChange} />
+      <Input
+        type="date"
+        state={due}
+        changehandler={(e) => {
+          setDue(e.target.value);
+        }}
+      />
       <p>重要度</p>
       <select
         className={`editing-select ${theme}`}
         defaultValue={prev.priority}
-        onChange={handlePriorityChange}
+        onChange={(e) => {
+          setPrioriry(e.target.value);
+        }}
       >
         <option value={HIGH}>{HIGH}</option>
         <option value={MEDIUM}>{MEDIUM}</option>

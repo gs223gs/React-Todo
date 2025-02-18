@@ -19,7 +19,6 @@ export const TodoList = ({ prev }) => {
   const [isEditing, setIsEditing] = useState(false);
   const switchEditingMode = () => {
     setIsEditing((prev) => !prev);
-    console.log(prev);
   };
   return (
     <section className={`todo-card_section ${theme}`}>

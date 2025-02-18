@@ -1,32 +1,19 @@
-//.Todo管理用のReducer
-//Badge表示用のState
-// .todos{
-// task: String
-// createdate: date
-// due day: date
-// priority: String
-// isDone: bool
-//}
-//reducerの中身
-//add, update, delete, done
-
-//newTodo = todos.filter(false)
-//setBadge(newTodo.lenght)
-
-import { useContext, useState, createContext, useReducer } from "react";
+import { useContext, createContext, useReducer } from "react";
 
 const TodoDispatchContext = createContext();
 const TodoConstContext = createContext();
 
+//別コンポーネントで以下の定数を呼び出す
+//why: 例 type: 'ADD' とするようにしたら，人的ミスが発生する可能性がある．
+//type: ADD　と必ず定数を呼び出すようにすることでミスを減らす
 const ADD = "ADD";
 const UPDATE = "UPDATE";
 const DELETE = "DELETE";
 const DONE = "DONE";
 
-const HIGH = 'HIGH';
-const MEDIUM = 'MEDIUM';
-const LOW = 'LOW';
-
+const HIGH = "HIGH";
+const MEDIUM = "MEDIUM";
+const LOW = "LOW";
 
 const iniState = [
   {
@@ -49,10 +36,9 @@ const iniState = [
 ];
 
 const todoreducer = (prev, action) => {
-  console.log(action);
   switch (action.type) {
     case ADD:
-      return [...prev, action.todo];
+      return [action.todo, ...prev];
     case UPDATE:
       return prev.map((todo) => {
         return todo.id === action.todo.id
@@ -84,7 +70,9 @@ export const TodoProvider = ({ children }) => {
 
   return (
     <TodoDispatchContext.Provider value={{ state, dispatch }}>
-      <TodoConstContext.Provider value={{ ADD, UPDATE, DELETE, DONE, HIGH, MEDIUM, LOW }}>
+      <TodoConstContext.Provider
+        value={{ ADD, UPDATE, DELETE, DONE, HIGH, MEDIUM, LOW }}
+      >
         {children}
       </TodoConstContext.Provider>
     </TodoDispatchContext.Provider>
