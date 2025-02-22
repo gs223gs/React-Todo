@@ -12,7 +12,6 @@ const Button = ({ text="初期値", type, todo, clickHandler, setState }) => {
       dispatch({ type, todo });
       setState(false);
     } else {
-      console.log('ADD',{type,todo})
       dispatch({ type, todo });
     }
   };
