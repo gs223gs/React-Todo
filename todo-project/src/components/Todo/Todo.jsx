@@ -10,14 +10,15 @@ export const Todo = () => {
   const { ADD } = useConst();
   const { theme } = useTheme();
 
+  const activeTodos = state.filter((todo) => todo.isDone == false);
   const [pages, setPages] = useState([])
   const [pagelangth, setPagelangth] = useState(0)
-  const activeTodos = state.filter((todo) => todo.isDone == false);
+  const [filterTodo, setFilterTodo] = useState(activeTodos)
 
   
 
   useEffect(() => {
-    setPagelangth(Math.ceil(activeTodos.length / 2))
+    setPagelangth(Math.ceil(filterTodo.length / 2))
     const newPages = [];
     for (let i = 0; i < pagelangth; i++) {
       newPages.push(i + 1);
@@ -38,12 +39,12 @@ export const Todo = () => {
         <Editing type={ADD} />
         <div>
         {pages.map((prev) =>{
-          return <span key ={prev}>{prev}        </span>
+          return <span key ={prev} onClick={()=>alert('onClicked')}>{prev}        </span>
         })}
       </div>
       </div>
       <div className={`todo-card ${theme}`}>
-        {activeTodos.map((prev) => {
+        {filterTodo.map((prev) => {
           return <TodoList prev={prev} key={prev.id} />;
         })}
       </div>
